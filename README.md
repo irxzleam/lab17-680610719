@@ -1,5 +1,8 @@
 # lab17-2569-starter — Zod + React Hook Form
 
+ชื่อ: ศิรวิทย์ อินทจักร์
+รหัสนักศึกษา: 680610719
+
 ```bash
 pnpm install
 pnpm dev

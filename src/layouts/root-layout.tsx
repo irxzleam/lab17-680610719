@@ -9,6 +9,9 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 
+const STUDENT_NAME = "ศิรวิทย์ อินทจักร์";
+const STUDENT_ID = "680610719";
+
 export default function RootLayout() {
   return (
     <SidebarProvider>
@@ -26,7 +29,7 @@ export default function RootLayout() {
           <Outlet />
         </main>
         <footer className="border-t p-4 text-center text-xs text-muted-foreground">
-          ชื่อ-นามสกุล และรหัสนักศึกษาของผู้จัดทำ — แก้เป็นของตัวเอง
+          {STUDENT_NAME} · {STUDENT_ID}
         </footer>
       </SidebarInset>
     </SidebarProvider>

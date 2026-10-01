@@ -7,6 +7,7 @@ import {
   enrollments as initialEnrollments,
 } from "@/lib/mock-data";
 import type { Course, Enrollment, Student } from "@/lib/types";
+export const STORAGE_KEY = "lab17-2569-680610719";
 
 type EnrollmentStore = {
   students: Student[];
@@ -16,7 +17,10 @@ type EnrollmentStore = {
   addStudent: (student: Student) => void;
   removeStudent: (studentId: string) => void;
   addCourse: (course: Course) => void;
-  removeInstructorFromCourse: (courseId: string, instructor: string) => void;
+  removeInstructorFromCourse: (
+    courseId: string,
+    instructorEmail: string,
+  ) => void;
   removeCourse: (courseId: string) => void;
 };
 
@@ -41,14 +45,14 @@ export const useEnrollmentStore = create<EnrollmentStore>()(
       addCourse: (course) =>
         set((state) => ({ courses: [...state.courses, course] })),
 
-      removeInstructorFromCourse: (courseId, instructor) =>
+      removeInstructorFromCourse: (courseId, instructorEmail) =>
         set((state) => ({
           courses: state.courses.map((course) =>
             course.courseId === courseId
               ? {
                   ...course,
                   instructors: course.instructors.filter(
-                    (name) => name !== instructor,
+                    (i) => i.email !== instructorEmail,
                   ),
                 }
               : course,
@@ -61,6 +65,12 @@ export const useEnrollmentStore = create<EnrollmentStore>()(
           enrollments: state.enrollments.filter((e) => e.courseId !== courseId),
         })),
     }),
-    // เก็บเฉพาะ students/courses ลง localStorage — enrollments ไม่ persist
+    {
+      name: STORAGE_KEY,
+      partialize: (state) => ({
+        students: state.students,
+        courses: state.courses,
+      }),
+    },
   ),
 );
